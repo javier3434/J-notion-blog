@@ -45,6 +45,13 @@ const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
         {/* 图片封面 */}
         {showPageCover && (
           <div className='md:w-5/12 overflow-hidden'>
+            {/* passHref： 这个属性告诉 Next.js 在子组件上显式传递 href
+            属性，尤其是当子组件不直接支持 href
+            属性时（如自定义组件）。这在使用自定义组件时很有用，确保链接的行为正常。
+            legacyBehavior： 这是一个 Next.js
+            的选项，用于启用旧的行为模式。这通常与旧版本的 Link
+            组件行为相关。如果您使用的是 Next.js 12
+            或更高版本并且想要保持旧版本的行为，您可以设置此属性。 */}
             <Link href={post?.href} passHref legacyBehavior>
               <LazyImage
                 priority={index === 1}

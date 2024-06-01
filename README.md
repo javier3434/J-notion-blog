@@ -1,5 +1,12 @@
 # NotionNext
-
+# 拉取原项目commit
+git remote add upstream https://github.com/tangly1024/NotionNext.git
+git remote -v
+git fetch upstream
+git checkout main  # 切换到你的主分支
+git merge upstream/main  # 将 upstream 的 main 分支合并到本地
+git add .
+git push origin main
 <p>
   <a aria-label="GitHub commit activity" href="https://github.com/tangly1024/NotionNext/commits/main" title="GitHub commit activity">
     <img src="https://img.shields.io/github/commit-activity/m/tangly1024/NotionNext?style=for-the-badge"/>
