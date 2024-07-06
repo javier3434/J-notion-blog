@@ -46,10 +46,10 @@ const Hero = props => {
       })
     }
 
-    window.addEventListener('resize', updateHeaderHeight)
-    return () => {
-      window.removeEventListener('resize', updateHeaderHeight)
-    }
+    // window.addEventListener('resize', updateHeaderHeight)
+    // return () => {
+    //   window.removeEventListener('resize', updateHeaderHeight)
+    // }
   })
   //判断是否屏幕尺寸来决定用哪种图片
   useEffect(() => {

@@ -82,7 +82,8 @@ const Header = props => {
         nav && nav.classList.replace('text-white', 'text-black')
       }
 
-      // 导航栏不在头图里，且滚到到main部分的时候，前1000像素不隐藏，之后如果下拉则隐藏，上滑则显示。
+      // 如果是首页 导航栏不在头图里，且滚到到main部分的时候，前1000像素不隐藏，之后如果下拉则隐藏，上滑则显示。
+      //如果不是首页 下拉则隐藏，上滑则显示。
       const showNav =
         (scrollS <= windowTop ||
         scrollS < 5||(header && scrollS <= header.clientHeight+1000)) &&
