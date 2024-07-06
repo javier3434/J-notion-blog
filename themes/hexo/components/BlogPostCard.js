@@ -52,13 +52,22 @@ const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
             的选项，用于启用旧的行为模式。这通常与旧版本的 Link
             组件行为相关。如果您使用的是 Next.js 12
             或更高版本并且想要保持旧版本的行为，您可以设置此属性。 */}
-            <Link href={post?.href} passHref legacyBehavior>
+            {/* <Link href={post?.href} passHref legacyBehavior>
               <LazyImage
                 priority={index === 1}
                 alt={post?.title}
                 src={post?.pageCoverThumbnail}
                 className='h-56 w-full object-cover object-center group-hover:scale-110 duration-500'
-              />
+              /> */}
+            <Link href={post?.href}>
+              <>
+                <LazyImage
+                  priority={index === 1}
+                  alt={post?.title}
+                  src={post?.pageCoverThumbnail}
+                  className='h-56 w-full object-cover object-center group-hover:scale-110 duration-500'
+                />
+              </>
             </Link>
           </div>
         )}
