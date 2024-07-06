@@ -17,7 +17,7 @@ const Hero = props => {
   const [typed, changeType] = useState()
   const { siteInfo } = props
   const { locale } = useGlobal()
-  const GREETING_WORDS = siteConfig('GREETING_WORDS').split(',')
+  const GREETING_WORDS = siteConfig('GREETING_WORDS').split('|')
   useEffect(() => {
     updateHeaderHeight()
     if (!typed && window && document.getElementById('typed')) {
@@ -29,9 +29,9 @@ const Hero = props => {
           changeType(
             new window.Typed('#typed', {
               strings: GREETING_WORDS,
-              typeSpeed: 200,
-              backSpeed: 100,
-              backDelay: 400,
+              typeSpeed: 70,
+              backSpeed: 20,
+              backDelay: 1000,
               showCursor: true,
               smartBackspace: true
             })

@@ -15,13 +15,14 @@ let wrapperTop = 0
  */
 const Hero = props => {
   const [typed, changeType] = useState()
+  const [src, setSrc] = useState('');
   const { siteInfo } = props
   const { locale } = useGlobal()
   const scrollToWrapper = () => {
     window.scrollTo({ top: wrapperTop, behavior: 'smooth' })
   }
 
-  const GREETING_WORDS = siteConfig('GREETING_WORDS').split(',')
+  const GREETING_WORDS = siteConfig('GREETING_WORDS').split('|')
   useEffect(() => {
     updateHeaderHeight()
 
@@ -34,9 +35,9 @@ const Hero = props => {
           changeType(
             new window.Typed('#typed', {
               strings: GREETING_WORDS,
-              typeSpeed: 200,
-              backSpeed: 100,
-              backDelay: 400,
+              typeSpeed: 70,
+              backSpeed: 20,
+              backDelay: 1000,
               showCursor: true,
               smartBackspace: true
             })
@@ -50,6 +51,18 @@ const Hero = props => {
       window.removeEventListener('resize', updateHeaderHeight)
     }
   })
+  //判断是否屏幕尺寸来决定用哪种图片
+  useEffect(() => {
+    const setResponsiveSrc = () => {
+      const isMobile = window.innerWidth <= 768;
+      setSrc(isMobile ? 'https://picsum.photos/900/2000?grayscale' : 'https://picsum.photos/1920/1080?grayscale');
+    };
+
+    setResponsiveSrc(); // Set initial src
+    window.addEventListener('resize', setResponsiveSrc); // Update src on resize
+
+    return () => window.removeEventListener('resize', setResponsiveSrc); // Cleanup on unmount
+  }, []);
 
   function updateHeaderHeight() {
     requestAnimationFrame(() => {
@@ -93,7 +106,8 @@ const Hero = props => {
       <LazyImage
         id='header-cover'
         alt={siteInfo?.title}
-        src={siteInfo?.pageCover}
+        // src={siteInfo?.pageCover}
+        src={src}//不使用notion配置，直接在代码里定义
         className={`header-cover w-full h-screen object-cover object-center ${siteConfig('HEXO_HOME_NAV_BACKGROUND_IMG_FIXED', null, CONFIG) ? 'fixed' : ''}`}
       />
     </header>
