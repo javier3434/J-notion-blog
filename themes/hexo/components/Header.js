@@ -49,7 +49,7 @@ const Header = props => {
       window.removeEventListener('scroll', topNavStyleHandler)
     }
   }, [])
-
+  
   const throttleMs = 200
 
   const topNavStyleHandler = useCallback(
@@ -82,11 +82,13 @@ const Header = props => {
         nav && nav.classList.replace('text-white', 'text-black')
       }
 
-      // 导航栏不在头图里，且页面向下滚动一定程度 隐藏导航栏
+      // 导航栏不在头图里，且滚到到main部分的时候，前1000像素不隐藏，之后如果下拉则隐藏，上滑则显示。
       const showNav =
-        scrollS <= windowTop ||
-        scrollS < 5 ||
-        (header && scrollS <= header.clientHeight + 100)
+        (scrollS <= windowTop ||
+        scrollS < 5||(header && scrollS <= header.clientHeight+1000)) &&
+        (header && scrollS >= header.clientHeight)
+
+      // console.log('%c@@@@scrollS,windowTop,showNav','background: gray; color: white; font-size: 16px;',scrollS,windowTop,showNav,header.clientHeight + 100,header && scrollS >= header.clientHeight);
       if (!showNav) {
         nav && nav.classList.replace('top-0', '-top-20')
         windowTop = scrollS
@@ -151,9 +153,9 @@ const Header = props => {
         id='sticky-nav'
         style={{ backdropFilter: 'blur(3px)' }}
         className={
-          'top-0 duration-300 transition-all  shadow-none fixed bg-none dark:bg-hexo-black-gray dark:text-gray-200 text-black w-full z-20 transform border-transparent dark:border-transparent'
+          'top-0 duration-300 transition-all  shadow-none fixed bg-none dark:bg-hexo-black-gray dark:text-gray-200 text-black w-fullscreen z-20 transform border-transparent dark:border-transparent left-0 right-0'
         }>
-        <div className='w-full flex justify-between items-center px-4 py-2'>
+        <div className='w-full flex justify-between items-center px-4 py-2 '>
           <div className='flex'>
             <Logo {...props} />
           </div>

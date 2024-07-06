@@ -93,7 +93,7 @@ const LayoutBase = props => {
         <Style />
 
         {/* 顶部导航 */}
-        <Header {...props} />
+        {/* <Header {...props} /> */}
 
         {/* 顶部嵌入 */}
         <Transition
@@ -113,6 +113,7 @@ const LayoutBase = props => {
         <main
           id='wrapper'
           className={`${siteConfig('HEXO_HOME_BANNER_ENABLE', null, CONFIG) ? '' : 'pt-16'} bg-hexo-background-gray dark:bg-black w-full py-8 md:px-8 lg:px-24 min-h-screen relative`}>
+          <Header {...props} />
           <div
             id='container-inner'
             className={
