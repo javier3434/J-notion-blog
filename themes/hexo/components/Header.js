@@ -14,6 +14,7 @@ import SearchDrawer from './SearchDrawer'
 import SideBar from './SideBar'
 import SideBarDrawer from './SideBarDrawer'
 import TagGroups from './TagGroups'
+import { usePathname } from 'next/navigation'
 
 let windowTop = 0
 
@@ -30,7 +31,8 @@ const Header = props => {
   const [isOpen, changeShow] = useState(false)
   const showSearchButton = siteConfig('HEXO_MENU_SEARCH', false, CONFIG)
   const showRandomButton = siteConfig('HEXO_MENU_RANDOM', false, CONFIG)
-
+  const pathname=usePathname();
+  console.log('%c@@@@router123','background: gray; color: white; font-size: 16px;',router,pathname);
   const toggleMenuOpen = () => {
     changeShow(!isOpen)
   }
@@ -84,10 +86,15 @@ const Header = props => {
 
       // 如果是首页 导航栏不在头图里，且滚到到main部分的时候，前1000像素不隐藏，之后如果下拉则隐藏，上滑则显示。
       //如果不是首页 下拉则隐藏，上滑则显示。
-      const showNav =
-        (scrollS <= windowTop ||
-        scrollS < 5||(header && scrollS <= header.clientHeight+1000)) &&
-        (header && scrollS >= header.clientHeight)
+      let showNav;
+      //这个函数里router，pathname不会随着路由跳转而改变
+      console.log('%c@@@@router','background: gray; color: white; font-size: 16px;',router,pathname);
+      if(pathname=='/'){
+        showNav =(scrollS <= windowTop ||scrollS < 5||(header && scrollS <= header.clientHeight+1000)) &&(header && scrollS >= header.clientHeight)
+      }else{
+        showNav =(scrollS <= windowTop ||scrollS < 5)
+      }
+
 
       // console.log('%c@@@@scrollS,windowTop,showNav','background: gray; color: white; font-size: 16px;',scrollS,windowTop,showNav,header.clientHeight + 100,header && scrollS >= header.clientHeight);
       if (!showNav) {
