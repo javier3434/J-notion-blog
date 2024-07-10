@@ -32,7 +32,7 @@ const Header = props => {
   const showSearchButton = siteConfig('HEXO_MENU_SEARCH', false, CONFIG)
   const showRandomButton = siteConfig('HEXO_MENU_RANDOM', false, CONFIG)
   const pathname=usePathname();
-  console.log('%c@@@@router123','background: gray; color: white; font-size: 16px;',router,pathname);
+  const [state_pathname, setState_pathname] = useState(pathname)
   const toggleMenuOpen = () => {
     changeShow(!isOpen)
   }
@@ -43,6 +43,8 @@ const Header = props => {
 
   // 监听滚动
   useEffect(() => {
+    console.log('%c@@@@router123','background: gray; color: white; font-size: 16px;',router,pathname);
+    // setState_pathname(pathname)
     window.addEventListener('scroll', topNavStyleHandler)
     router.events.on('routeChangeComplete', topNavStyleHandler)
     topNavStyleHandler()
@@ -106,7 +108,10 @@ const Header = props => {
       }
     }, throttleMs)
   )
-
+  // if(pathname!=='/'){
+  //   const nav = document.querySelector('#sticky-nav')
+  //   nav && nav.classList.replace('-top-20', 'top-0')
+  // }
   const searchDrawerSlot = (
     <>
       {categories && (
@@ -161,7 +166,7 @@ const Header = props => {
         id='sticky-nav'
         style={{ backdropFilter: 'blur(3px)' }}
         className={
-          'top-0 duration-300 transition-all  shadow-none fixed bg-none dark:bg-hexo-black-gray dark:text-gray-200 text-black w-fullscreen z-20 transform border-transparent dark:border-transparent left-0 right-0'
+          'top-0 duration-300 transition-all  shadow-none fixed bg-none dark:bg-hexo-black-gray dark:text-gray-200 text-black w-fullscreen z-20 transform border-transparent dark:border-transparent left-0 right-0 '
         }>
         <div className='w-full flex justify-between items-center px-4 py-2 '>
           <div className='flex'>
