@@ -41,6 +41,7 @@ const Header = props => {
   }
 
   // 监听滚动
+  //每次pathname改变的时候重新设置事件监听，才可以在topNavStyleHandler取到最新的pathname
   useEffect(() => {
     window.addEventListener('scroll', topNavStyleHandler)
     router.events.on('routeChangeComplete', topNavStyleHandler)
@@ -49,10 +50,9 @@ const Header = props => {
       router.events.off('routeChangeComplete', topNavStyleHandler)
       window.removeEventListener('scroll', topNavStyleHandler)
     }
-  }, [])
-  
-  const throttleMs = 200
+  }, [pathname])
 
+  const throttleMs = 200
   const topNavStyleHandler = useCallback(
     throttle(() => {
       const scrollS = window.scrollY
@@ -87,7 +87,8 @@ const Header = props => {
       //如果不是首页 下拉则隐藏，上滑则显示。
       let showNav;
       //这个函数里router，pathname不会随着路由跳转而改变
-      // console.log('%c@@@@router','background: gray; color: white; font-size: 16px;',router,pathname);
+      let test=pathname
+      console.log('%c@@@@router','background: gray; color: white; font-size: 16px;',router,test);
       if(pathname=='/'){
         showNav =(scrollS <= windowTop ||scrollS < 5||(header && scrollS <= header.clientHeight+1000)) &&(header && scrollS >= header.clientHeight)
       }else{
@@ -158,7 +159,7 @@ const Header = props => {
         id='sticky-nav'
         style={{ backdropFilter: 'blur(3px)' }}
         className={
-          'top-0 duration-300 transition-all  shadow-none fixed bg-none dark:bg-hexo-black-gray dark:text-gray-200 text-black w-fullscreen z-20 transform border-transparent dark:border-transparent left-0 right-0 '+(pathname=='/'?'':'-top-1')
+          'top-0 duration-300 transition-all  shadow-none fixed bg-none dark:bg-hexo-black-gray dark:text-gray-200 text-black w-fullscreen z-20 transform border-transparent dark:border-transparent left-0 right-0'
         }>
         <div className='w-full flex justify-between items-center px-4 py-2 '>
           <div className='flex'>
